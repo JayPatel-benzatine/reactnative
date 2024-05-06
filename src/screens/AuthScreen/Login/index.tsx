@@ -34,28 +34,38 @@ const Login: React.FC<Props> = ({navigation}) => {
   } = useForm();
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.auth.userData);
+  console.log(userData);
 
   const onSubmit = async (data: any) => {
-    const payload = {
-      password: data.password,
-      username: data.username,
-    };
-    dispatch(loginUser(payload) as any);
-  };
-  const setStoragte = async () => {
-    const userToken = String(userData?.password);
+    const userToken = String(data?.password);
+    console.log('pass', userToken);
+
     try {
       await AsyncStorage.setItem('userToken', userToken);
     } catch (e) {
       console.log(e);
     }
     dispatch(login(userToken));
+    // const payload = {
+    //   password: data.password,
+    //   username: data.username,
+    // };
+    // dispatch(loginUser(payload) as any);
   };
-  useEffect(() => {
-    if (Object.keys(userData).length !== 0) {
-      setStoragte();
-    }
-  }, [userData]);
+  // const setStoragte = async () => {
+  //   const userToken = String(userData?.password);
+  //   try {
+  //     await AsyncStorage.setItem('userToken', userToken);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  //   dispatch(login(userToken));
+  // };
+  // useEffect(() => {
+  //   if (Object.keys(userData).length !== 0) {
+  //     setStoragte();
+  //   }
+  // }, [userData]);
   return (
     <KeyboardAvoidingView
       style={LoginStyle.keyboard}

@@ -71,8 +71,11 @@ export const loginUser = createAsyncThunk(
           text1: errorData.message,
           visibilityTime: 2000, // Duration of the toast
         });
+
+        console.log('er', errorData);
         throw new Error(errorData.message);
       }
+      console.log('res', await response.json());
 
       return await response.json();
     } catch (error) {
